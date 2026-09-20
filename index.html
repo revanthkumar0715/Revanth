@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Ball Snake Game</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="game-container">
+    <!-- Top Stats Bar -->
+    <header class="game-header">
+      <div class="brand-title">
+        <i class="fa-solid fa-staff-snake" style="font-size: 1.6rem; color: #3b82f6;"></i>
+        <div>
+          <h1>Snake Color Ball</h1>
+        </div>
+        <span class="brand-badge">White Canvas</span>
+      </div>
+
+      <div class="stats-bar">
+        <div class="stat-card">
+          <span class="stat-label">Score</span>
+          <span class="stat-value" id="scoreVal">0</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">High Score</span>
+          <span class="stat-value" id="highScoreVal">0</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Length</span>
+          <span class="stat-value" id="lengthVal">10</span>
+        </div>
+      </div>
+
+      <div class="controls-bar">
+        <button class="btn-icon" id="btnPause" title="Pause Game (Space)">
+          <i class="fa-solid fa-pause"></i>
+        </button>
+        <button class="btn-icon" id="btnSound" title="Toggle Sound">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
+        <button class="btn-icon" id="btnRestart" title="Restart Game (R)">
+          <i class="fa-solid fa-rotate-right"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Game Workspace: Canvas + Side Panel -->
+    <div class="game-workspace">
+      <!-- Canvas Wrapper -->
+      <div class="canvas-wrapper" id="canvasWrapper">
+        <div class="toast-msg" id="toastMsg">Ready! Use Arrow Keys or WASD</div>
+        <canvas id="gameCanvas" width="600" height="480"></canvas>
+
+        <!-- Game Over / Pause Overlay Modal -->
+        <div class="modal-overlay" id="gameModal">
+          <div class="modal-card">
+            <div class="modal-icon" id="modalIcon">
+              <i class="fa-solid fa-skull-crossbones"></i>
+            </div>
+            <h2 class="modal-title" id="modalTitle">Game Over!</h2>
+            <p class="modal-subtitle" id="modalSubtitle">You ate a Black Ball!</p>
+            
+            <div class="score-recap">
+              <div class="recap-item">
+                <span class="recap-label">Final Score</span>
+                <span class="recap-val" id="recapScore">0</span>
+              </div>
+              <div class="recap-item">
+                <span class="recap-label">Final Length</span>
+                <span class="recap-val" id="recapLength">10</span>
+              </div>
+            </div>
+
+            <button class="btn-primary" id="btnModalAction">
+              <i class="fa-solid fa-play me-2"></i> Play Again
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Side Legend & Speed Settings -->
+      <aside class="side-panel">
+        <div class="panel-card">
+          <h3><i class="fa-solid fa-circle-info" style="color: #3b82f6;"></i> Ball Rules</h3>
+          <div class="legend-list">
+            <div class="legend-item">
+              <div class="ball-dot black"></div>
+              <div class="legend-info">
+                <span class="legend-title" style="color: #0f172a;">Black Ball</span>
+                <span class="legend-desc">Instant Death / Game Over</span>
+              </div>
+            </div>
+            <div class="legend-item">
+              <div class="ball-dot red"></div>
+              <div class="legend-info">
+                <span class="legend-title" style="color: #dc2626;">Red Ball</span>
+                <span class="legend-desc">+10% of initial size (+1 seg)</span>
+              </div>
+            </div>
+            <div class="legend-item">
+              <div class="ball-dot green"></div>
+              <div class="legend-info">
+                <span class="legend-title" style="color: #059669;">Green Ball</span>
+                <span class="legend-desc">+50% of initial size (+5 segs)</span>
+              </div>
+            </div>
+            <div class="legend-item">
+              <div class="ball-dot yellow"></div>
+              <div class="legend-info">
+                <span class="legend-title" style="color: #d97706;">Yellow Ball</span>
+                <span class="legend-desc">Shrinks to 20% of current size</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-group" style="margin-top: 1.25rem;">
+            <span class="setting-label">Game Speed</span>
+            <div class="speed-options">
+              <button class="btn-speed" data-speed="slow">Slow</button>
+              <button class="btn-speed active" data-speed="normal">Normal</button>
+              <button class="btn-speed" data-speed="fast">Fast</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Touch D-Pad Controls (shown on smaller screens) -->
+        <div class="panel-card" style="display: flex; flex-direction: column; align-items: center;">
+          <span class="setting-label" style="margin-bottom: 0.5rem;">Controls (WASD / Arrows)</span>
+          <div class="touch-controls">
+            <button class="dpad-btn dpad-up" id="btnUp"><i class="fa-solid fa-chevron-up"></i></button>
+            <button class="dpad-btn dpad-left" id="btnLeft"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="dpad-btn dpad-right" id="btnRight"><i class="fa-solid fa-chevron-right"></i></button>
+            <button class="dpad-btn dpad-down" id="btnDown"><i class="fa-solid fa-chevron-down"></i></button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
